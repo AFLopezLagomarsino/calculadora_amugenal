@@ -1,23 +1,21 @@
+export const cuotas = ({tasa, mes, capital}) =>{
+    //Calculo cuotas
+    let A = Math.pow(1 + tasa, mes);
 
-const devolucion = (valorCuota,meses) => {
-    const valor = (valorCuota * meses)
-    return valor
-}
+    let B = (capital*tasa/30)*35
+                
+    const cuota = tasa * A * ((capital + B)/(A-1))
 
-const cuotas = (tasa, numeroPeriodos, valorActual) =>{
-    const interes = tasa / (1 - Math.pow(1 + tasa, -numeroPeriodos));
-    const pago = (valorActual * interes) / (1 - Math.pow(1 + interes, -numeroPeriodos));
-    return pago;
-}
+    //Calculo devolucion
+    const valorDevolucion = cuota*mes
 
-const gastosAdm = (capitalInicial, meses) =>{
+    //Calculo neto
+    const neto = cuota*100/30
 
+    //Calculo gastos Administrativos
     const constante=0.9
 
-    let capitalNum= parseInt(capitalInicial)
-    let mesesNum= parseInt(meses)
-    
-    let gastoCiclado = (capitalNum * constante * mesesNum)/1000
+    let gastoCiclado = (capital * constante * mes)/1000
 
     let ciclo=1
 
@@ -33,20 +31,15 @@ const gastosAdm = (capitalInicial, meses) =>{
         if(ciclo === 10){
             break
         }
-        gastos = ((capitalNum+gastoAnt) * constante * mesesNum)/1000
+        gastos = ((capital+gastoAnt) * constante * mes)/1000
 
         gastoCiclado=gastos
 
     }while (gastos !== gastoAnt)
-    
-    return gastos
+
+    //Retorno valores calculados
+    return {cuota: cuota, 
+            valorDevolucion: valorDevolucion, 
+            neto: neto, 
+            gastos: gastos}
 }
-
-
-
-const neto = (valorCuota) =>{
-    const neto = valorCuota*100/30
-    return neto
-}
-
-export {devolucion, cuotas, gastosAdm, neto}

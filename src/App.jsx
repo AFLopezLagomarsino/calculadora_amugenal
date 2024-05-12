@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { devolucion, cuotas, gastosAdm, neto } from "./hooks/func1";
+import { Tabla } from "./components/tablas";
+
 import "./App.css";
 
 function App() {
@@ -9,29 +10,9 @@ function App() {
     capital: 0,
     mes1: 0,
     mes2: 0,
-    mes3: 0
+    mes3: 0,
+    calcular: false
   })
-
-  const [calculos, setCalculos] = useState ({
-    1:{
-    cuota: 0,
-    devolucion: 0,
-    gastos: 0,
-    neto: 0
-  },
-  2:{
-    cuota: 0,
-    devolucion: 0,
-    gastos: 0,
-    neto: 0
-  },
-  3:{
-    cuota: 0,
-    devolucion: 0,
-    gastos: 0,
-    neto: 0
-  }
-  });
 
   function Fecha() {
     const date = new Date();
@@ -49,29 +30,15 @@ function App() {
     console.log(input.tasa,input.capital)
   }
   
+  let meses=[input.mes1, input.mes2, input.mes3];
+
   function handleSubmit(e) {
     e.preventDefault();
-    
-    let meses=[input.mes1, input.mes2, input.mes3];
-
-    for(let i=0; i<meses.length; i++){
-      let resultadoCuotas = cuotas(input.tasa, meses[i], input.capital);
-      let resultadoDevolucion = devolucion(resultadoCuotas, meses[i]);
-      let resultadoGastos = gastosAdm(input.capital, meses[i]);
-      let resultadoNeto = neto(resultadoCuotas);
-
-      setCalculos({
-        ...calculos,
-        [i+1]:{
-          cuota: resultadoCuotas,
-          devolucion: resultadoDevolucion,
-          gastos: resultadoGastos,
-          neto: resultadoNeto
-        }
-      })
-
-      console.log(calculos ,meses[i])
-    }
+    setInput({
+      ...input,
+      calcular: true
+    })
+    console.log(input.calcular)
   }
 
 
@@ -109,53 +76,14 @@ function App() {
           </form>
         </div>
         
-        <div>
-          <h3>Resultado</h3>
+        {input.calcular===true?(
           <div>
-            <table>
-              <thead>
-                <tr>
-                  <th>meses</th>
-                    <th key='mes1'>{input.mes1}</th>
-                    <th key='mes2'>{input.mes2}</th>
-                    <th key='mes3'>{input.mes3}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>cuota</td>
-                    <td key='cuota1'>${input.tasa!==0 && input.capital!==0 ? calculos[1].cuota : 0}</td>
-                    <td key='cuota2'>${input.tasa!==0 && input.capital!==0 ? calculos[2].cuota : 0}</td>
-                    <td key='cuota3'>${input.tasa!==0 && input.capital!==0 ? calculos[3].cuota : 0}</td>
-                </tr>
-                <tr>
-                  <td>cuanto se devuelve</td>
-                    <td key='dev1'>${input.tasa!==0 && input.capital!==0 ? calculos[1].devolucion : 0}</td>
-                    <td key='dev2'>${input.tasa!==0 && input.capital!==0 ? calculos[2].devolucion : 0}</td>
-                    <td key='dev3'>${input.tasa!==0 && input.capital!==0 ? calculos[3].devolucion : 0}</td>
-                </tr>
-                <tr>
-                  <td>gastos administrativos</td>
-                    <td key='gastos1'>${input.tasa!==0 && input.capital!==0 ? calculos[1].gastos : 0}</td>
-                    <td key='gastos2'>${input.tasa!==0 && input.capital!==0 ? calculos[2].gastos : 0}</td>
-                    <td key='gastos3'>${input.tasa!==0 && input.capital!==0 ? calculos[3].gastos : 0}</td>
-                </tr>
-                <tr>
-                  <td>se transfiere</td>
-                  <td key='trans1'>$</td>
-                  <td key='trans2'>$</td>
-                  <td key='trans3'>$</td>
-                </tr>
-                <tr>
-                  <td>neto necesario</td>
-                    <td key='neto1'>${input.tasa!==0 && input.capital!==0 ? calculos[1].neto : 0}</td>
-                    <td key='neto2'>${input.tasa!==0 && input.capital!==0 ? calculos[2].neto : 0}</td>
-                    <td key='neto3'>${input.tasa!==0 && input.capital!==0 ? calculos[3].neto : 0}</td>
-                </tr>
-              </tbody>
-            </table>
+            <h3>Resultados</h3>
+            <div>
+              {meses.map((mes, index)=>(<Tabla key={index} tasa={parseFloat(input.tasa)} capital={parseFloat(input.capital)} mes={parseFloat(mes)}/>))}
+            </div>
           </div>
-        </div>
+          ):(null)}
       </div>
     </>
   );
