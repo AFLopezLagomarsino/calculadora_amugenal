@@ -1,4 +1,4 @@
-export const cuotas = ({tasa, mes, capital}) =>{
+export const cuotas = (tasa, mes, capital) =>{
     //Calculo cuotas
     let A = Math.pow(1 + tasa, mes);
 
