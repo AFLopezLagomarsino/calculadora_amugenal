@@ -21,7 +21,6 @@
   align-items: center;
   justify-content:space-evenly;
 
-  gap: 1rem;
   padding: 10px;
 
   input{
@@ -53,6 +52,7 @@
 
   h4{
     margin: .8rem;
+    font-size: calc(100% * (100vw - 600px) / 1000);;
   }
 }
 
@@ -70,6 +70,13 @@ input::-webkit-inner-spin-button{
   gap: 3rem;
 }
 
+.datos{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
 @media print {
   .no-imprimir {
     display: none;
@@ -81,6 +88,7 @@ input::-webkit-inner-spin-button{
     left: 0;
     width: 100%;
     height: 100%;
+
   }
 }
 

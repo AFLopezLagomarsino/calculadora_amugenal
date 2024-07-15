@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Tabla } from "./components/tablas";
-
+import Logo from "./assets/amugenal_logo.png"
 import "./App.css";
 
+const parseInteres = (tasa) =>{
+  return (tasa*100).toFixed(2)
+}
 function App() {
 
   const [input, setInput] = useState({
@@ -44,9 +47,8 @@ function App() {
 
   return (
     <div className="cont-principal">
-        <div className="no-imprimir">
-        <h1>Calculadora Amugenal</h1>
-        <p>{Fecha()}</p>
+      <div className="no-imprimir">
+        <h1>Lupin III</h1>
         <form onSubmit={handleSubmit}>
           <div className="cont-inputs">
             <h4>Valores del plan: </h4>
@@ -85,12 +87,17 @@ function App() {
     <div className="area-imprimir">
       {input.calcular === true ? (
         <div>
-          <h3>Resultados</h3>
+          <img src={Logo} alt="logo" className="imprimirlogo"/>
+          <h3>{Fecha()}</h3>
+          <div className="datos">
+            <h2>Capital: ${input.capital}</h2>
+            <h2>Tasa de interés: {parseInteres(input.tasa)}%</h2>
+          </div>
           <div className="cont-resultados">
             <div className="tabla">
-              <h4>Cantidad cuotas</h4>
+              <h4>Cuotas</h4>
               <h4>Valor cuotas</h4>
-              <h4>Gastos Administrativos</h4>
+              <h4>G. Administrativos</h4>
               <h4>Neto</h4>
               <h4>Devolucion</h4>
             </div>

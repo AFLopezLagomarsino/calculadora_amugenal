@@ -9,10 +9,10 @@ export function Tabla({tasa, capital, mes}){
     return(
         <div className={style.cont}>
             <h2>{mes}</h2>
-            <h2>{resultadoCuotas.cuota.toFixed(2)}</h2>
-            <h2>{resultadoCuotas.gastos.toFixed(2)}</h2>
-            <h2>{resultadoCuotas.neto.toFixed(2)}</h2>
-            <h2>{resultadoCuotas.valorDevolucion.toFixed(2)}</h2>
+            <h2>$ {resultadoCuotas.cuota.toFixed(2)}</h2>
+            <h2>$ {resultadoCuotas.gastos.toFixed(2)}</h2>
+            <h2>$ {resultadoCuotas.neto.toFixed(2)}</h2>
+            <h2>$ {resultadoCuotas.valorDevolucion.toFixed(2)}</h2>
         </div>
     )
 }

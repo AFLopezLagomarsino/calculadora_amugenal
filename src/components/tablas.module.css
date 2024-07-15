@@ -16,6 +16,14 @@
     }
 }
 
+@media print{
+    .cont{
+        width: 15rem;
+        gap: 50rem;
+
+    }
+}
+
 @media (max-width: 768px) {
     .cont{
         width: 100%;
